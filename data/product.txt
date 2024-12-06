@@ -1,0 +1,134 @@
+// 20241129224019
+// http://localhost:8081/next-tech/product
+
+{
+  "statusCode": 200,
+  "error": null,
+  "message": "Get all products successfully",
+  "data": [
+    {
+      "productId": 1,
+      "productName": "Macbook Pro 14 M2 Pro 10CPU 16GPU 16GB 512GB Silver - MPHH3SA/A",
+      "price": 23000000,
+      "salePrice": 20000000,
+      "description": "Macbook Pro 14 M2 Pro 10CPU 16GPU 16GB 512GB Silver - MPHH3SA/A mang đến một siêu phẩm laptop học tập và làm việc thế hệ mới. Thừa hưởng vẻ đẹp sang trọng từ thương hiệu Apple cùng hiệu năng vượt trội được xử lý từ con chip M2 mạnh mẽ. Hứa hẹn đây sẽ là một trong những chiếc laptop làm mưa làm gió trên thị trường. Cùng GEARVN tìm hiểu xem Macbook Pro 14 M2 Pro này có gì đáng mong đợi nhé.<br />Macbook Pro 14 M2 Pro để đánh giá về vẻ bề ngoài so với những phiên bản trước đây có lẽ không có sự thay đổi gì nhiều. Ngoại hình vẫn giữ được nét đẹp sang trọng với tông màu Silver đặc trưng. Điểm khác biệt mà bạn có thể cảm nhận được trên chiếc Macbook nhà Apple này là hiệu năng mạnh mẽ từ con chip M2. Với cấu trúc CPU 10 nhân mang đến tốc độ xử lý công việc trôi chảy hơn bao giờ hết. Kết hợp cùng 16 nhân GPU cho kết xuất đồ họa đẹp mắt. Đáp ứng mọi nhu cầu thiết kế hình ảnh, dựng video, giải trí,...",
+      "quantity": 10,
+      "category": {
+        "categoryName": "laptop",
+        "createdAt": "2024-11-27T02:51:24.927548Z",
+        "createdBy": "anonymousUser",
+        "modifiedAt": null,
+        "modifiedBy": null,
+        "id": 1
+      },
+      "images": [
+        "https://product.hstatic.net/200000722513/product/ook_air_m2_8gpu_16gb_256gb_-_midnight_8ead913e1d624d79be608bbbc7f46f94_f825a6934627488b965e487885ce51dd_grande.jpg"
+      ],
+      "productInfo": {
+        "brand": "apple",
+        "cpu": "M2 PRO 10CPU 16GPU",
+        "screenSize": "15inches",
+        "ram": "32GB",
+        "rom": "1TB",
+        "batteryLife": "5000mA"
+      },
+      "createdAt": "2024-11-27 09:51:29 AM",
+      "createdBy": "anonymousUser",
+      "modifiedAt": null,
+      "modifiedBy": null
+    },
+    {
+      "productId": 2,
+      "productName": "Macbook Air M2 10GPU 8GB 512GB - Midnight",
+      "price": 30000000,
+      "salePrice": 28000000,
+      "description": "Hoàn thiện với lớp nhôm cao cấp tạo nên sự chắc chắn nhưng vẫn vô cùng nhẹ giúp cho Macbook Air M2 10GPU 8GB 512GB - Midnight thành phẩm với khối lượng chỉ 1.24kg. Kết hợp với độ mỏng chỉ 1.13 cm, Macbook Air M2 vẫn giữ vững tôn chỉ của dòng Air trước đây khi cho phép bạn có thể đồng hành cùng chiếc laptop ở mọi nơi. Khoác lên mình màu xanh midnight độc lạ và mới mẻ, Macbook Air M2 sẽ mang đến luồng gió mới đến cho người dùng và liệu đây sẽ là trend màu sắc mới cho những sản phẩm đến từ Apple",
+      "quantity": 10,
+      "category": {
+        "categoryName": "laptop",
+        "createdAt": "2024-11-27T02:51:24.927548Z",
+        "createdBy": "anonymousUser",
+        "modifiedAt": null,
+        "modifiedBy": null,
+        "id": 1
+      },
+      "images": [
+        "https://product.hstatic.net/200000722513/product/ook-air-m2-10gpu-8gb-512gb-midnight-1_2c5a4e6bb332411cb87193ed4bcdcb6c_4f606c5b1e0c456ebf74b0a73f9c4870_grande.jpg"
+      ],
+      "productInfo": {
+        "brand": "apple",
+        "cpu": "M2 8CPU 10GPU",
+        "screenSize": "16inches",
+        "ram": "16GB",
+        "rom": "SSD 1TB",
+        "batteryLife": "Up to 18 hours Apple TV app movie playback"
+      },
+      "createdAt": "2024-11-27 15:11:45 PM",
+      "createdBy": "anonymousUser",
+      "modifiedAt": null,
+      "modifiedBy": null
+    },
+    {
+      "productId": 3,
+      "productName": "Macbook Air M2 10GPU 8GB 512GB - Silver",
+      "price": 30000000,
+      "salePrice": 28000000,
+      "description": "Hoàn thiện với lớp nhôm cao cấp tạo nên sự chắc chắn nhưng vẫn vô cùng nhẹ giúp cho Macbook Air M2 10GPU 8GB 512GB - Silver thành phẩm với khối lượng chỉ 1.24kg. Kết hợp với độ mỏng chỉ 1.13 cm, Macbook Air M2 vẫn giữ vững tôn chỉ của dòng Air trước đây khi cho phép bạn có thể đồng hành cùng chiếc laptop ở mọi nơi. Khoác lên mình màu bạc sang trọng, tinh tế, Macbook Air M2 sẽ là tâm điểm thu hút mọi ánh nhìn lướt qua khi mang đi làm việc hay học tập.",
+      "quantity": 15,
+      "category": {
+        "categoryName": "laptop",
+        "createdAt": "2024-11-27T02:51:24.927548Z",
+        "createdBy": "anonymousUser",
+        "modifiedAt": null,
+        "modifiedBy": null,
+        "id": 1
+      },
+      "images": [
+        "https://product.hstatic.net/200000722513/product/cbook-air-m2-10gpu-8gb-512gb-silver-2_9996b049f85648169fad6e9f71ed1bc1_6c61a5a4d2a44212af3826b301a4af43_grande.jpg"
+      ],
+      "productInfo": {
+        "brand": "apple",
+        "cpu": "M2 8CPU 10GPU",
+        "screenSize": "14inches",
+        "ram": "16GB",
+        "rom": "SSD 1TB",
+        "batteryLife": "Up to 18 hours Apple TV app movie playback"
+      },
+      "createdAt": "2024-11-27 15:13:05 PM",
+      "createdBy": "anonymousUser",
+      "modifiedAt": null,
+      "modifiedBy": null
+    },
+    {
+      "productId": 4,
+      "productName": "Laptop gaming Gigabyte G5 GD 51VN123SO",
+      "price": 17000000,
+      "salePrice": 16000000,
+      "description": "Hoàn thiện với lớp nhôm cao cấp tạo nên sự chắc chắn nhưng vẫn vô cùng nhẹ giúp cho Macbook Air M2 10GPU 8GB 512GB - Silver thành phẩm với khối lượng chỉ 1.24kg. Kết hợp với độ mỏng chỉ 1.13 cm, Macbook Air M2 vẫn giữ vững tôn chỉ của dòng Air trước đây khi cho phép bạn có thể đồng hành cùng chiếc laptop ở mọi nơi. Khoác lên mình màu bạc sang trọng, tinh tế, Macbook Air M2 sẽ là tâm điểm thu hút mọi ánh nhìn lướt qua khi mang đi làm việc hay học tập.",
+      "quantity": 15,
+      "category": {
+        "categoryName": "laptop",
+        "createdAt": "2024-11-27T02:51:24.927548Z",
+        "createdBy": "anonymousUser",
+        "modifiedAt": null,
+        "modifiedBy": null,
+        "id": 1
+      },
+      "images": [
+        "https://product.hstatic.net/200000722513/product/bd402130a6646b0a0865c8a14956557_550bddbb0f7746f39534c85e3a6ee3d9_large_ca75f062055d4b0aa9e4301a9458e90f_grande.png"
+      ],
+      "productInfo": {
+        "brand": "Asus",
+        "cpu": "Intel Core i5-11400H upto 4.50GHz, 6 nhân 12 luồng",
+        "screenSize": "15.6 inch Thin Bezel FHD (1920x1080) IPS-level Anti-glare Display LCD, 144Hz, ~90% sRGB",
+        "ram": "16GB (2x8GB) DDR4-3200Mhz (2 khe ram, nâng cấp tối đa 64GB RAM)",
+        "rom": "512GB SSD M.2 PCIE G4X4 (Còn trống 1 khe SSD M.2 PCIE và 1 khe 2.5' SATA",
+        "batteryLife": "Up to 18 hours Apple TV app movie playback"
+      },
+      "createdAt": "2024-11-27 15:15:39 PM",
+      "createdBy": "anonymousUser",
+      "modifiedAt": null,
+      "modifiedBy": null
+    }
+  ]
+}
