@@ -29,6 +29,8 @@ public class UserDTO {
 
     Set<Role> roles;
 
+    CartDTO cart;
+
     List<ProductDTO> wishList;
 
 //    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss", shape = JsonFormat.Shape.STRING)

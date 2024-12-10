@@ -19,6 +19,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -40,6 +43,25 @@ public class UserFacade {
         return GenericApiResponse.builder()
                 .statusCode(200)
                 .message("Update user successfully")
+                .build();
+    }
+
+    public GenericApiResponse<List<UserDTO>> getAllUser() {
+        List<UserEntity> users = userService.getAllUser();
+        List<UserDTO> userDTOS = users.stream().map(UserMapper.INSTANCE::convertToUserDTO).toList();
+        return GenericApiResponse.<List<UserDTO>>builder()
+                .statusCode(200)
+                .message("Get all user successfully")
+                .data(userDTOS)
+                .build();
+    }
+
+    public GenericApiResponse<UserDTO> getUserById(Long userId) {
+        Optional<UserEntity> user = userService.findUserById(userId);
+        return GenericApiResponse.<UserDTO>builder()
+                .statusCode(200)
+                .message("Get all user successfully")
+                .data(UserMapper.INSTANCE.convertToUserDTO(user.get()))
                 .build();
     }
 }

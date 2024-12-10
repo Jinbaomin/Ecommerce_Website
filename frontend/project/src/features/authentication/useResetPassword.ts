@@ -14,7 +14,7 @@ interface IResetPassword {
 export const useResetPassword = () => {
   const navigate = useNavigate();
 
-  const { mutate: resetPassword, isPending } = useMutation<IBackendResponse<any>, AxiosError<IBackendResponse<any>>, IResetPassword>({
+  const { mutate: resetPassword, isPending,isSuccess } = useMutation<IBackendResponse<any>, AxiosError<IBackendResponse<any>>, IResetPassword>({
     mutationFn: async ({ email, newPassword }): Promise<any> => callResetPassword(email, newPassword),
     onSuccess: (data) => {
       toast.success(data.message, {
@@ -24,12 +24,14 @@ export const useResetPassword = () => {
         transition: Flip
       })
 
-      navigate('/');
+      if(!window.location.pathname.startsWith('/admin')) {
+        navigate('/');
+      }
     },
     onError: (error) => {
       console.log(error.response?.data.message);
     }
   });
 
-  return { resetPassword, isPending };
+  return { resetPassword, isPending, isSuccess };
 }

@@ -7,10 +7,12 @@ import org.example.myproject.mapper.OrderMapper;
 import org.example.myproject.model.dto.GenericApiResponse;
 import org.example.myproject.model.dto.request.CheckOut;
 import org.example.myproject.model.dto.response.OrderDTO;
+import org.example.myproject.model.dto.response.PaginationResult;
 import org.example.myproject.model.entity.Order;
 import org.example.myproject.services.OrderService;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Array;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,11 +41,11 @@ public class OrderFacade {
                 .build();
     }
 
-    public GenericApiResponse<Order> updateStatusOrder(Long orderId, String status) {
-        return GenericApiResponse.<Order>builder()
+    public GenericApiResponse<OrderDTO> updateStatusOrder(Long orderId, String status) {
+        return GenericApiResponse.<OrderDTO>builder()
                 .statusCode(200)
                 .message("Update status successfully")
-                .data(orderService.updateStatusOrder(orderId, status))
+                .data(OrderMapper.INSTANCE.convertToOrderDTO(orderService.updateStatusOrder(orderId, status)))
                 .build();
     }
 
@@ -52,6 +54,31 @@ public class OrderFacade {
                 .statusCode(200)
                 .message("Get order by id successfully")
                 .data(OrderMapper.INSTANCE.convertToOrderDTO(orderService.getOrderById(orderId)))
+                .build();
+    }
+
+    public GenericApiResponse<PaginationResult> getOrderByUserId(Long userId, int page, int pageSize) {
+        PaginationResult result = orderService.getOrderByUserId(userId, page, pageSize);
+        List<Order> orders = (List<Order>) result.getData();
+        List<OrderDTO> orderDTOList = orders.stream().map(OrderMapper.INSTANCE::convertToOrderDTO).toList();
+        result.setData(orderDTOList);
+        return GenericApiResponse.<PaginationResult>builder()
+                .statusCode(200)
+                .message("Get order by user id successfully")
+                .data(result)
+                .build();
+    }
+
+    public GenericApiResponse<PaginationResult> getALlOrders(int page, int pageSize, String sortedBy, String status, String email) {
+        List<String> arr = List.of(sortedBy.split(","));
+        PaginationResult result = orderService.getAllOrders(page, pageSize, arr.get(0), arr.get(1), status, email);
+        List<Order> orders = (List<Order>) result.getData();
+        List<OrderDTO> orderDTOList = orders.stream().map(OrderMapper.INSTANCE::convertToOrderDTO).toList();
+        result.setData(orderDTOList);
+        return GenericApiResponse.<PaginationResult>builder()
+                .statusCode(200)
+                .message("Get all orders successfully")
+                .data(result)
                 .build();
     }
 }

@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.example.myproject.facade.CategoryFacade;
 import org.example.myproject.model.dto.GenericApiResponse;
+import org.example.myproject.model.dto.response.CategoryDTO;
 import org.example.myproject.model.entity.Category;
 import org.example.myproject.services.CategoryService;
 import org.springframework.http.ResponseEntity;
@@ -25,19 +26,19 @@ public class CategoryController {
     }
 
     @GetMapping("")
-    public ResponseEntity<GenericApiResponse<List<Category>>> getAllCategories() {
+    public ResponseEntity<GenericApiResponse<List<CategoryDTO>>> getAllCategories() {
         return ResponseEntity.ok(categoryFacade.getAllCategories());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<GenericApiResponse<Category>> getCategoryById(
+    public ResponseEntity<GenericApiResponse<CategoryDTO>> getCategoryById(
             @PathVariable Long id
     ) {
         return ResponseEntity.ok(categoryFacade.getCategoryById(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<GenericApiResponse<Category>> updateCategory(
+    public ResponseEntity<GenericApiResponse<CategoryDTO>> updateCategory(
             @RequestBody Category category,
             @PathVariable Long id
     ) {
@@ -45,7 +46,7 @@ public class CategoryController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<GenericApiResponse<Void>> updateCategory(
+    public ResponseEntity<GenericApiResponse<Void>> deleteCategory(
             @PathVariable Long id
     ) {
         return ResponseEntity.ok(categoryFacade.deleteCategory(id));

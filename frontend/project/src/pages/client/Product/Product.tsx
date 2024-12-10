@@ -146,7 +146,7 @@ const Product: React.FC = () => {
         ))}
       </div>
       <div className='flex flex-row items-start px-8 gap-4 py-5'>
-        <div className='sticky top-3 w-[17%] border p-4 rounded-lg '>
+        <div className='sticky top-3 w-[17%] border p-4 rounded-xl '>
           <p className='font-medium text-xl'>Filter</p>
           <hr className='my-2' />
           <div>
@@ -214,7 +214,7 @@ const Product: React.FC = () => {
         <div className='flex-1 grid grid-cols-4 gap-3'>
           {data?.data.map((product) => (
             <div onClick={() => navigate(`/products/${product.productId}`)} key={product.productId} className='px-4 py-2 rounded-lg border hover:shadow-lg flex flex-col items-center min-h-[270px] hover:cursor-pointer'>
-              <img src={product.images[0]} className='w-32 my-2' />
+              <img src={product.images[0]} className='w-32 my-2 h-32 object-cover' />
               <span className='border border-black w-full'></span>
               <p className='text-sm font-medium mt-3 line-clamp-3 h-1/4'>{product.productName}</p>
               <div className='flex justify-between w-full mt-3'>

@@ -6,6 +6,8 @@ import lombok.experimental.FieldDefaults;
 import org.example.myproject.exception.AppException;
 import org.example.myproject.exception.ErrorCode;
 import org.example.myproject.model.dto.request.CheckOut;
+import org.example.myproject.model.dto.response.OrderDTO;
+import org.example.myproject.model.dto.response.PaginationResult;
 import org.example.myproject.model.entity.*;
 import org.example.myproject.repositories.OrderItemRepository;
 import org.example.myproject.repositories.OrderRepository;
@@ -15,6 +17,10 @@ import org.example.myproject.security.SecurityUtils;
 import org.example.myproject.services.CartService;
 import org.example.myproject.services.OrderService;
 import org.example.myproject.services.UserService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -114,5 +120,49 @@ public class OrderServiceImpl implements OrderService {
         }
 
         return orderOptional.get();
+    }
+
+    @Override
+    public PaginationResult getOrderByUserId(Long userId, int page, int pageSize) {
+        UserEntity user = userService.findUserById(userId).get();
+        Pageable pageable = PageRequest.of(page - 1, pageSize);
+        Page<Order> listPage = orderRepository.findByUser(user, pageable);
+        PaginationResult.Meta meta = PaginationResult.Meta.builder()
+                .page(listPage.getNumber() + 1)
+                .pageSize(listPage.getSize())
+                .amountPage(listPage.getTotalPages())
+                .total(listPage.getTotalElements())
+                .build();
+        return PaginationResult.builder()
+                .meta(meta)
+                .data(listPage.getContent())
+                .build();
+    }
+
+    @Override
+    public PaginationResult getAllOrders(int page, int pageSize, String sortedBy, String option, String status, String email) {
+        Pageable pageable = PageRequest.of(page - 1, pageSize,
+                option.equals("asc") ? Sort.by(sortedBy).ascending() : Sort.by(sortedBy).descending());
+        Page<Order> listPage;
+        if(!status.isEmpty() && !email.isEmpty()) {
+            listPage = orderRepository.findByUserAndStatus(userService.findUserByEmail(email), status, pageable);
+        } else if(!status.isEmpty()) {
+            listPage = orderRepository.findByStatus(status, pageable);
+        } else if(!email.isEmpty()) {
+            listPage = orderRepository.findByUser(userService.findUserByEmail(email), pageable);
+        } else {
+            listPage = orderRepository.findAll(pageable);
+        }
+
+        PaginationResult.Meta meta = PaginationResult.Meta.builder()
+                .page(listPage.getNumber() + 1)
+                .pageSize(listPage.getSize())
+                .amountPage(listPage.getTotalPages())
+                .total(listPage.getTotalElements())
+                .build();
+        return PaginationResult.builder()
+                .meta(meta)
+                .data(listPage.getContent())
+                .build();
     }
 }

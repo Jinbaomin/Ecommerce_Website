@@ -5,6 +5,16 @@ export interface IBackendResponse<T> {
   data: T;
 }
 
+export interface PaginationResult<T> {
+  meta: {
+    page: number;
+    pageSize: number;
+    amountPage: number;
+    total: number;
+  };
+  data: T;
+}
+
 export interface IAccount {
   authenticated: boolean;
   access_token: string;
@@ -19,7 +29,7 @@ export interface IAccount {
   }
 }
 
-export interface IUser extends Pick<IAccount, 'user'> { };
+// export interface IUser extends Pick<IAccount, 'user'> { };
 
 export interface IGetAccount extends Omit<IAccount, 'access_token'> { }
 
@@ -30,6 +40,8 @@ export interface IUser {
   email: string;
   phone: string;
   roles: ["ADMIN" | "USER"];
+  wishList: IProduct[];
+  cart: ICart;
   createdDate: string;
   lastModifiedDate: string;
   modifiedBy: string;
@@ -43,6 +55,7 @@ export interface IProduct {
   description: string;
   quantity: number;
   category: {
+    id: number;
     categoryName: string;
   },
   images: string[];
@@ -69,10 +82,17 @@ export interface ICart {
   cartItems: ICartItem[];
 }
 
+export interface IOrderItem {
+  orderItemId: string;
+  quantity: number;
+  total: number;
+  product: IProduct;
+}
+
 export interface IOrder {
   orderId: string;
   total: number;
-  orderItems: ICartItem[];
+  orderItems: IOrderItem[];
   createdAt: string;
   updatedAt: string;
   status: "PENDING" | "DELIVERED" | "CANCELED";
@@ -81,4 +101,11 @@ export interface IOrder {
     shipTo: string;
     shippingMethod: string;
   }
+}
+
+export interface ICategory {
+  categoryId: string;
+  categoryName: string;
+  products: IProduct[];
+  createdAt: string;
 }

@@ -8,7 +8,7 @@ import { Color } from 'antd/es/color-picker';
 import { Link } from 'react-router-dom';
 
 const colorStatus = {
-  'PENDING': 'bg-cyan-500',
+  'PENDING': 'bg-blue-500',
   'DELIVERED': 'bg-green-500',
   'CANCELED': 'bg-red-500'
 }

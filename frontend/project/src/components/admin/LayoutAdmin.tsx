@@ -11,6 +11,8 @@ import { Link } from 'react-router-dom';
 import { TbUserEdit } from 'react-icons/tb';
 import { MdOutlineCategory } from "react-icons/md";
 import { useLogout } from '../../features/authentication/useLogout';
+import { BsBagCheck } from "react-icons/bs";
+import { BsBoxSeam } from "react-icons/bs";
 
 const navigationBars = [
   {
@@ -20,11 +22,11 @@ const navigationBars = [
   },
   {
     icon: <FaRegUser className='w-6 h-6' />,
-    title: 'User',
-    path: 'user'
+    title: 'Customer',
+    path: 'customer'
   },
   {
-    icon: <img src={asset.boxProduct} alt="" className='w-6 h-6' />,
+    icon: <BsBoxSeam className='w-6 h-6' />,
     title: 'Product',
     path: 'product'
   },
@@ -34,7 +36,7 @@ const navigationBars = [
     path: 'category'
   },
   {
-    icon: <img src={asset.order} alt="" className='w-6 h-6' />,
+    icon: <BsBagCheck className='w-6 h-6' />,
     title: 'Order',
     path: 'order'
   }
@@ -85,7 +87,7 @@ const LayoutAdmin = () => {
         </span>
         {navigationBars.map(item => (
           <button onClick={() => navigate(item.path)} className={`px-4 py-2 flex justify-start items-center gap-2 rounded-r-full hover:cursor-pointer hover:bg-slate-200 ${currentPath === item.path && 'bg-gradient-to-r from-cyan-500 to-blue-500'}`}>
-            {item.icon}
+            <span className={`${currentPath === item.path && 'text-white'}`}>{item.icon}</span>
             <span className={`font-normal ${currentPath == item.path && 'font-semibold text-white'}`}>{item.title}</span>
           </button>
         ))}

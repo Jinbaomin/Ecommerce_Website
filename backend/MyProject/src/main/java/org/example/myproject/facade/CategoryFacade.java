@@ -3,7 +3,9 @@ package org.example.myproject.facade;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.example.myproject.mapper.CategoryMapper;
 import org.example.myproject.model.dto.GenericApiResponse;
+import org.example.myproject.model.dto.response.CategoryDTO;
 import org.example.myproject.model.entity.Category;
 import org.example.myproject.services.CategoryService;
 import org.springframework.stereotype.Service;
@@ -24,28 +26,31 @@ public class CategoryFacade {
                 .build();
     }
 
-    public GenericApiResponse<List<Category>> getAllCategories() {
-        return GenericApiResponse.<List<Category>>builder()
+    public GenericApiResponse<List<CategoryDTO>> getAllCategories() {
+        List<Category> categories = categoryService.getALlCategories();
+        List<CategoryDTO> categoryDTOList = categories.stream().map(CategoryMapper.INSTANCE::mapToCategoryDTO).toList();
+
+        return GenericApiResponse.<List<CategoryDTO>>builder()
                 .statusCode(200)
                 .message("Get all categories successfully")
-                .data(categoryService.getALlCategories())
+                .data(categoryDTOList)
                 .build();
     }
 
-    public GenericApiResponse<Category> getCategoryById(Long categoryId) {
-        return GenericApiResponse.<Category>builder()
+    public GenericApiResponse<CategoryDTO> getCategoryById(Long categoryId) {
+        return GenericApiResponse.<CategoryDTO>builder()
                 .statusCode(200)
                 .message("Get category successfully")
-                .data(categoryService.getCategoryById(categoryId))
+                .data(CategoryMapper.INSTANCE.mapToCategoryDTO(categoryService.getCategoryById(categoryId)))
                 .build();
     }
 
-    public GenericApiResponse<Category> updateCategory(Long categoryId, Category category) {
+    public GenericApiResponse<CategoryDTO> updateCategory(Long categoryId, Category category) {
         Category updatedCategory = categoryService.updateCategory(categoryId, category);
-        return GenericApiResponse.<Category>builder()
+        return GenericApiResponse.<CategoryDTO>builder()
                 .statusCode(200)
                 .message("Update category successfully")
-                .data(updatedCategory)
+                .data(CategoryMapper.INSTANCE.mapToCategoryDTO(updatedCategory))
                 .build();
     }
 

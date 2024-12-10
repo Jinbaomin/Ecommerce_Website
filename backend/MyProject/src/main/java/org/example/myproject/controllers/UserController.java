@@ -9,9 +9,13 @@ import org.example.myproject.model.dto.GenericApiResponse;
 import org.example.myproject.model.dto.request.ChangePasswordRequest;
 import org.example.myproject.model.dto.request.ResetPasswordRequest;
 import org.example.myproject.model.dto.request.UpdateUserRequest;
+import org.example.myproject.model.dto.response.UserDTO;
+import org.example.myproject.model.entity.UserEntity;
 import org.example.myproject.services.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -31,5 +35,17 @@ public class UserController {
             @PathVariable String id
     ) {
         return ResponseEntity.ok(userFacade.updateUser(Long.parseLong(id), body.getFullName(), body.getEmail(), body.getPhone()));
+    }
+
+    @GetMapping("")
+    public ResponseEntity<GenericApiResponse<List<UserDTO>>> getAllUser() {
+        return ResponseEntity.ok(userFacade.getAllUser());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<GenericApiResponse<UserDTO>> getUserById(
+            @PathVariable Long id
+    ) {
+        return ResponseEntity.ok(userFacade.getUserById(id));
     }
 }

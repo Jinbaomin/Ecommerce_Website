@@ -32,10 +32,16 @@ import Detail_Order from './pages/client/Order/Detail_Order'
 import LayoutAdmin from './components/admin/LayoutAdmin'
 import Dashboard from './pages/admin/Dashboard'
 import AdminProduct from './pages/admin/Product/AdminProduct'
-import AdminOrder from './pages/admin/AdminOrder'
+import AdminOrder from './pages/admin/Order/AdminOrder'
 import AdminUser from './pages/admin/AdminUser'
-import AdminCategory from './pages/admin/AdminCategory'
+import AdminCategory from './pages/admin/Category/AdminCategory'
 import AddProduct from './pages/admin/Product/AddProduct'
+import AdminDetailOrder from './pages/admin/Order/AdminDetailOrder'
+import AddCategory from './pages/admin/Category/AddCategory'
+import EditCateogory from './pages/admin/Category/EditCategory'
+import EditProduct from './pages/admin/Product/EditProduct'
+import AdminCustomer from './pages/admin/Customer/AdminCustomer'
+import AdminDetailCustomer from './pages/admin/Customer/AdminDetailCustomer'
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -161,12 +167,36 @@ const App: React.FC = () => {
           element: <AddProduct />
         },
         {
+          path: 'product/:id/edit',
+          element: <EditProduct />
+        },
+        {
           path: 'category',
           element: <AdminCategory />
         },
         {
+          path: 'category/add',
+          element: <AddCategory />
+        },
+        {
+          path: 'category/:id/edit',
+          element: <EditCateogory />
+        },
+        {
           path: 'order',
           element: <AdminOrder />
+        },
+        {
+          path: 'order/:id',
+          element: <AdminDetailOrder />
+        },
+        {
+          path: 'customer',
+          element: <AdminCustomer /> 
+        },
+        {
+          path: 'customer/:id',
+          element: <AdminDetailCustomer /> 
         },
         {
           path: 'user',

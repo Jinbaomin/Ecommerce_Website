@@ -27,7 +27,7 @@ public class Category {
     String categoryName;
 
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonIgnore
+    @JsonIgnoreProperties(value = {"category"})
     List<Product> products;
 
     Instant createdAt;

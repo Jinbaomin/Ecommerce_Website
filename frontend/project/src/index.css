@@ -54,7 +54,8 @@ option {
   background: rgba(128, 128, 128, 0.2);
   border-radius: 10px;
 }
-@layer base {
+
+/* @layer base {
   :root {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
@@ -116,4 +117,4 @@ option {
   body {
     @apply bg-background text-foreground;
   }
-}
+} */

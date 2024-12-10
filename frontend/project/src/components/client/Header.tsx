@@ -72,7 +72,7 @@ const Header: React.FC = () => {
     </FullPage>
   }
 
-  console.log(localStorage.getItem('access_token'), dataCart);
+  // console.log(localStorage.getItem('access_token'), dataCart);
 
   const handleLogOut = (e?: Event) => {
     // e?.preventDefault();
@@ -110,7 +110,7 @@ const Header: React.FC = () => {
       <div className='flex gap-7'>
         {navigation.map((item, index) => (
           <Link to={item.path} key={index} className='hover:cursor-pointer relative overflow-hidden group'>
-            <p className={`text-lg group-hover:-translate-y-1 group-hover:font-semibold group-hover:text-blue-500 transition-all group-hover:text-xl ${pathname === item.path && 'text-violet-500 font-semibold'}`}>{item.title}</p>
+            <p className={`text-lg group-hover:-translate-y-1 group-hover:font-semibold group-hover:text-blue-500 transition-all group-hover:text-xl ${pathname === item.path && 'text-blue-500 font-semibold'}`}>{item.title}</p>
             <span className='h-[1px] rounded-lg w-100% block bg-slate-500 translate-y-2 group-hover:-translate-y-1 transition-all'></span>
           </Link>
         ))}
@@ -121,7 +121,7 @@ const Header: React.FC = () => {
         </div>
         <div onClick={() => navigate('/cart')} className='relative hover:bg-slate-200 p-2 rounded-full group'>
           <BsCart2 className='w-7 h-7 object-cover hover:cursor-pointer group-hover:text-blue-400' />
-          <span className={`absolute top-1 right-1 bg-red-500 text-white text-xs px-[7px] py-[1px] flex justify-center items-end rounded-full ${(pendingCart || dataCart?.data?.cartItems) && 'hidden'}`}>
+          <span className={`absolute top-1 right-1 bg-red-500 text-white text-xs px-[7px] py-[1px] flex justify-center items-end rounded-full ${(pendingCart || dataCart?.data?.cartItems.length === 0) && 'hidden'}`}>
             {dataCart?.data.cartItems.length}
           </span>
         </div>

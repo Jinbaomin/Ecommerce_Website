@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.example.myproject.facade.ProductFacade;
 import org.example.myproject.model.dto.GenericApiResponse;
+import org.example.myproject.model.dto.response.PaginationResult;
 import org.example.myproject.model.dto.response.ProductDTO;
 import org.example.myproject.model.entity.Product;
 import org.springframework.http.ResponseEntity;
@@ -20,8 +21,14 @@ public class ProductController {
     ProductFacade productFacade;
 
     @GetMapping("")
-    public ResponseEntity<GenericApiResponse<List<ProductDTO>>> getAllProduct() {
-        return ResponseEntity.ok(productFacade.getAllProduct());
+    public ResponseEntity<GenericApiResponse<PaginationResult>> getAllProduct(
+            @RequestParam(value = "page", required = false, defaultValue = "1") String page,
+            @RequestParam(value = "pageSize", required = false, defaultValue = "5") String pageSize,
+            @RequestParam(value = "sortedBy", required = false, defaultValue = "createdAt,asc") String sortedBy,
+            @RequestParam(value = "stock", required = false, defaultValue = "") String stock,
+            @RequestParam(value = "name", required = false, defaultValue = "") String name
+    ) {
+        return ResponseEntity.ok(productFacade.getAllProduct(Integer.parseInt(page), Integer.parseInt(pageSize), sortedBy, stock, name));
     }
 
     @PostMapping("")

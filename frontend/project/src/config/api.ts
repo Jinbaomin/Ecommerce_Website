@@ -1,4 +1,6 @@
-import { IAccount, IBackendResponse, ICart, ICartItem, IGetAccount, IOrder, IProduct, IUser } from "../types/backend";
+import { FormValuesProduct } from "../pages/admin/Product/AddProduct";
+import { FormValuesUpdateProduct } from "../pages/admin/Product/EditProduct";
+import { IAccount, IBackendResponse, ICart, ICartItem, ICategory, IGetAccount, IOrder, IProduct, IUser } from "../types/backend";
 import { instance as axios } from "./axios-customize";
 
 // Module Auth
@@ -39,6 +41,14 @@ export const callUpdateUser = async (id: string, fullName: string, email: string
   return axios.post<IBackendResponse<IUser>>(`/user/${id}`, { fullName, email, phone });
 }
 
+export const callGetAllUser = async () => {
+  return axios.get<IBackendResponse<IUser[]>>('/user');
+}
+
+export const callGetUserById = async (userId: string) => {
+  return axios.get<IBackendResponse<IUser>>(`/user/${userId}`);
+}
+
 // Wish list
 export const callAddProductToWishList = async (productId: string) => {
   return axios.post<IBackendResponse<IUser>>(`/wishlist/${productId}`);
@@ -50,12 +60,64 @@ export const callDeleteProductFromWishList = async (productId: string) => {
 
 
 // Module Product
-export const callGetAllProduct = async () => {
-  return axios.get<IBackendResponse<IProduct[]>>('/product');
+export const callGetAllProduct = async (query: string) => {
+  return axios.get<IBackendResponse<IProduct[]>>(`/product${query}`);
 }
 
 export const callGetProductById = async (productId: string) => {
   return axios.get<IBackendResponse<IProduct>>(`/product/${productId}`);
+}
+
+export const callCreateProduct = async (
+  data: FormValuesProduct
+) => {
+  return axios.post<IBackendResponse<IProduct>>('/product', {
+    productName: data.productName,
+    price: data.price,
+    salePrice: data.salePrice,
+    description: data.description,
+    images: data.images,
+    category: {
+      id: data.categoryId
+    },
+    quantity: data.quantity,
+    productInfo: {
+      brand: data.brand,
+      cpu: data.cpu,
+      ram: data.ram,
+      rom: data.rom,
+      screenSize: data.screenSize,
+      batteryLife: data.batteryLife
+    }
+  });
+}
+
+export const callUpdateProduct = async (
+  data: FormValuesUpdateProduct
+) => {
+  return axios.put<IBackendResponse<IProduct>>(`/product/${data.productId}`, {
+    productName: data.productName,
+    price: data.price,
+    salePrice: data.salePrice,
+    description: data.description,
+    images: data.images,
+    category: {
+      id: data.categoryId
+    },
+    quantity: data.quantity,
+    productInfo: {
+      brand: data.brand,
+      cpu: data.cpu,
+      ram: data.ram,
+      rom: data.rom,
+      screenSize: data.screenSize,
+      batteryLife: data.batteryLife
+    }
+  });
+}
+
+export const callDeleteProduct = async (productId: number) => {
+  return await axios.delete<IBackendResponse<any>>(`/product/${productId}`);
 }
 
 // Cart
@@ -77,7 +139,7 @@ export const callDeleteCartItm = async (cartItemId: string) => {
 }
 
 // Order
-export const getAllOrder = async () => {
+export const callGetAllMyOrder = async () => {
   return axios.get<IBackendResponse<IOrder[]>>('/order');
 }
 
@@ -87,4 +149,37 @@ export const callCheckOut = async (total: number, shipTo: string, shippingMethod
 
 export const callGetOrderById = async (orderId: string) => {
   return axios.get<IBackendResponse<IOrder>>(`/order/${orderId}`);
+}
+
+export const callUpdateStatusOrder = async (orderId: string, status: string) => {
+  return axios.put<IBackendResponse<IOrder>>(`/order/${orderId}/status`, { status });
+}
+
+export const callGetAllOrder = async (query: string) => {
+  return axios.get<IBackendResponse<IOrder[]>>(`/order/admin${query}`);
+}
+
+export const callGetOrderByUserId = async (userId: string, query: string) => {
+  return axios.get<IBackendResponse<IOrder[]>>(`/order/user/${userId}${query}`);
+}
+
+// Category
+export const callGetAllCategory = async () => {
+  return axios.get<IBackendResponse<ICategory[]>>(`/category`);
+}
+
+export const callGetCategoryById = async (categoryId: string) => {
+  return axios.get<IBackendResponse<ICategory>>(`/category/${categoryId}`);
+}
+
+export const callCreateCategory = async (categoryName: string) => {
+  return axios.post<IBackendResponse<ICategory>>(`/category`, { categoryName });
+}
+
+export const callDeleteCategory = async (categoryId: string) => {
+  return axios.delete<IBackendResponse<any>>(`/category/${categoryId}`);
+}
+
+export const callUpdateCategory = async (categoryId: string, categoryName: string) => {
+  return axios.put<IBackendResponse<ICategory>>(`/category/${categoryId}`, { categoryName });
 }

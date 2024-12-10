@@ -23,12 +23,11 @@ public class OrderDTO {
 
     Long total;
 
-    List<OrderItem> orderItems;
+    List<OrderItemDTO> orderItems;
 
     String status;
 
-    @JsonIgnoreProperties(value = {"orders", "cart", "wishList"})
-    UserEntity user;
+    UserDTO user;
 
     OrderInfo orderInfo;
 

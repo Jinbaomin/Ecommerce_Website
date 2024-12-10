@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.example.myproject.mapper.ProductMapper;
 import org.example.myproject.model.dto.GenericApiResponse;
+import org.example.myproject.model.dto.response.PaginationResult;
 import org.example.myproject.model.dto.response.ProductDTO;
 import org.example.myproject.model.entity.Product;
 import org.example.myproject.services.ProductService;
@@ -27,13 +28,16 @@ public class ProductFacade {
                 .build();
     }
 
-    public GenericApiResponse<List<ProductDTO>> getAllProduct() {
-        List<Product> products = productService.getAllProduct();
+    public GenericApiResponse<PaginationResult> getAllProduct(int page, int pageSize, String sortedBy, String stock, String name) {
+        List<String> arr = List.of(sortedBy.split(","));
+        PaginationResult result = productService.getAllProduct(page, pageSize, arr.get(0), arr.get(1), stock, name);
+        List<Product> products = (List<Product>) result.getData();
         List<ProductDTO> productDTOS = products.stream().map(ProductMapper.INSTANCE::convertToProductDTO).collect(Collectors.toList());
-        return GenericApiResponse.<List<ProductDTO>>builder()
+        result.setData(productDTOS);
+        return GenericApiResponse.<PaginationResult>builder()
                 .statusCode(200)
                 .message("Get all products successfully")
-                .data(productDTOS)
+                .data(result)
                 .build();
     }
 
@@ -52,7 +56,7 @@ public class ProductFacade {
         ProductDTO productDTO = ProductMapper.INSTANCE.convertToProductDTO(updatedProduct);
         return GenericApiResponse.<ProductDTO>builder()
                 .statusCode(200)
-                .message("Get product successfully")
+                .message("Update product successfully")
                 .data(productDTO)
                 .build();
     }
