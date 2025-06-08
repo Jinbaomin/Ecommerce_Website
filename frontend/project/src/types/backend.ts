@@ -12,6 +12,7 @@ export interface PaginationResult<T> {
     amountPage: number;
     total: number;
   };
+  
   data: T;
 }
 
@@ -66,7 +67,9 @@ export interface IProduct {
     ram: string;
     rom: string;
     batteryLife: string;
-  }
+  },
+  createdAt: string;
+  modifiedAt: string;
 }
 
 export interface ICartItem {

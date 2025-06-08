@@ -101,7 +101,7 @@ const Header: React.FC = () => {
   ];
 
   return (
-    <div className=' pb-2 pt-3 px-3 flex items-center justify-between border-b shadow-md border-slate-400'>
+    <div className=' pb-2 pt-3 px-3 flex items-center justify-between'>
       <div className='w-20 flex items-center gap-3 hover:cursor-pointer' onClick={() => navigate('/')}>
         <img src={asset.logo} className='h-12 w-12 object-cover' />
         <h1 className='font-extrabold text-4xl bg-gradient-to-r from-cyan-500 to-blue-500 inline-block text-transparent bg-clip-text'>TECH4</h1>

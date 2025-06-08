@@ -8,6 +8,7 @@ import org.example.myproject.mapper.UserMapper;
 import org.example.myproject.model.dto.GenericApiResponse;
 import org.example.myproject.model.dto.request.LoginInfo;
 import org.example.myproject.model.dto.response.AuthenticationResponse;
+import org.example.myproject.model.dto.response.PaginationResult;
 import org.example.myproject.model.dto.response.UserDTO;
 import org.example.myproject.model.entity.UserEntity;
 import org.example.myproject.security.JwtProvider;
@@ -46,13 +47,15 @@ public class UserFacade {
                 .build();
     }
 
-    public GenericApiResponse<List<UserDTO>> getAllUser() {
-        List<UserEntity> users = userService.getAllUser();
+    public GenericApiResponse<PaginationResult> getAllUser(int page, int pageSize,String search) {
+        PaginationResult result = userService.getAllUser(page, pageSize, search);
+        List<UserEntity> users = (List<UserEntity>) result.getData();
         List<UserDTO> userDTOS = users.stream().map(UserMapper.INSTANCE::convertToUserDTO).toList();
-        return GenericApiResponse.<List<UserDTO>>builder()
+        result.setData(userDTOS);
+        return GenericApiResponse.<PaginationResult>builder()
                 .statusCode(200)
                 .message("Get all user successfully")
-                .data(userDTOS)
+                .data(result)
                 .build();
     }
 

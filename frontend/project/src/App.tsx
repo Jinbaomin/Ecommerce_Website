@@ -30,7 +30,7 @@ import Detail_Product from './pages/client/Product/Detail_Product'
 import ReceiptOrder from './pages/client/ReceiptOrder'
 import Detail_Order from './pages/client/Order/Detail_Order'
 import LayoutAdmin from './components/admin/LayoutAdmin'
-import Dashboard from './pages/admin/Dashboard'
+// import Dashboard from './pages/admin/Dashboard'
 import AdminProduct from './pages/admin/Product/AdminProduct'
 import AdminOrder from './pages/admin/Order/AdminOrder'
 import AdminUser from './pages/admin/AdminUser'
@@ -42,6 +42,9 @@ import EditCateogory from './pages/admin/Category/EditCategory'
 import EditProduct from './pages/admin/Product/EditProduct'
 import AdminCustomer from './pages/admin/Customer/AdminCustomer'
 import AdminDetailCustomer from './pages/admin/Customer/AdminDetailCustomer'
+// import Dashboard from './pages/admin/Dashboard/dashboard';
+import Dashboard from './pages/admin/Dashboard/Dashboard';
+import OrderConfirmation from './pages/client/OrderConfirmation'
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -95,6 +98,10 @@ const App: React.FC = () => {
           element: <ReceiptOrder />
         },
         {
+          path: 'order-confirmation/:id',
+          element: <OrderConfirmation />
+        },
+        {
           path: 'profile',
           element: <Profile />,
           children: [
@@ -111,11 +118,11 @@ const App: React.FC = () => {
               element: <Profile_Payment />
             },
             {
-              path: 'myOrder',
+              path: 'track-order',
               element: <Profile_Order />
             },
             {
-              path: 'myOrder/:id',
+              path: 'track-order/:id',
               element: <Detail_Order />
             },
             {

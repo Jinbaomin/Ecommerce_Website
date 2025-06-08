@@ -1,5 +1,6 @@
 package org.example.myproject.services;
 import org.example.myproject.model.dto.request.RegisterInfo;
+import org.example.myproject.model.dto.response.PaginationResult;
 import org.example.myproject.model.dto.response.UserDTO;
 import org.example.myproject.model.entity.UserEntity;
 
@@ -17,5 +18,5 @@ public interface UserService {
     public void changePassword(String oldPassword, String newPassword);
     public void updateUser(Long id, String fullName, String email, String phone);
     public Optional<UserEntity> findUserById(Long id);
-    public List<UserEntity> getAllUser();
+    public PaginationResult getAllUser(int page, int pageSize, String search);
 }

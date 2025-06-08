@@ -5,7 +5,7 @@ import { AxiosError } from "axios";
 import { useSearchParams } from "react-router-dom";
 
 export const useGetOrderByUserId = () => {
-  const userId = window.location.pathname.split('/')[3];
+  const userId = window.location.pathname.split('/')[3] || localStorage.getItem('userId');
   const [searchParams, setSearchParams] = useSearchParams();
   const page = searchParams.get('page') || 1;
   const pageSize = searchParams.get('limit') || 5;

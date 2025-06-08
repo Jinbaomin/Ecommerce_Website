@@ -12,6 +12,7 @@ import org.example.myproject.model.dto.response.PaginationResult;
 import org.example.myproject.model.entity.Order;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -60,13 +61,14 @@ public class OrderController {
     }
 
     @GetMapping("/admin")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<GenericApiResponse<PaginationResult>> getAllOrders(
             @RequestParam(value = "page", required = false, defaultValue = "1") String page,
             @RequestParam(value = "pageSize", required = false, defaultValue = "5") String pageSize,
-            @RequestParam(value = "sortedBy", required = false, defaultValue = "createdAt,asc") String sortedBy,
+            @RequestParam(value = "sortedBy", required = false, defaultValue = "createdAt,desc") String sortedBy,
             @RequestParam(value = "status", required = false, defaultValue = "") String status,
             @RequestParam(value = "searchByEmail", required = false, defaultValue = "") String email
     ) {
-        return ResponseEntity.ok(orderFacade.getALlOrders(Integer.parseInt(page), Integer.parseInt(pageSize), sortedBy, status, email));
+        return ResponseEntity.ok(orderFacade.getAllOrders(Integer.parseInt(page), Integer.parseInt(pageSize), sortedBy, status, email));
     }
 }

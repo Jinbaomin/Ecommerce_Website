@@ -11,7 +11,7 @@ import org.example.myproject.model.entity.Product;
 import org.example.myproject.services.ProductService;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -28,9 +28,34 @@ public class ProductFacade {
                 .build();
     }
 
-    public GenericApiResponse<PaginationResult> getAllProduct(int page, int pageSize, String sortedBy, String stock, String name) {
+    public GenericApiResponse<PaginationResult> getAllProduct(
+            int page,
+            int pageSize,
+            String sortedBy,
+            String stock,
+            String name,
+            String brand,
+            String hasRam,
+            String hasRom,
+            String minPrice,
+            String maxPrice
+    ) {
         List<String> arr = List.of(sortedBy.split(","));
-        PaginationResult result = productService.getAllProduct(page, pageSize, arr.get(0), arr.get(1), stock, name);
+//        Collection<String> brands = brand.isEmpty() ? null : List.of(brand.split(","));
+        List<String> brands = brand.isEmpty() ? null : List.of(brand.split(","));
+        PaginationResult result = productService.getAllProducts(
+                page,
+                pageSize,
+                arr.get(0),
+                arr.get(1),
+                stock,
+                name,
+                brands,
+                hasRam,
+                hasRom,
+                minPrice,
+                maxPrice
+        );
         List<Product> products = (List<Product>) result.getData();
         List<ProductDTO> productDTOS = products.stream().map(ProductMapper.INSTANCE::convertToProductDTO).collect(Collectors.toList());
         result.setData(productDTOS);

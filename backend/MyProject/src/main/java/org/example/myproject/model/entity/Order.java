@@ -25,7 +25,7 @@ public class Order {
 
     @ManyToOne
     @JsonIgnoreProperties(value = {"orders", "cart", "wishList"})
-    //@JsonIgnore
+//    @JsonIgnore
     UserEntity user;
 
     @Column(name = "total")

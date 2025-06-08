@@ -95,11 +95,11 @@ const AdminProduct: React.FC = () => {
             Add Product
           </button>
         </div>
-        <div className='py-3 px-4 flex justify-between items-center gap-4'>
+        <div className='py-1 px-4 flex justify-between items-center gap-4'>
           <form onSubmit={handleSubmit(handleSearch)}>
             <label className='text-lg font-medium mr-2'>Search</label>
-            <input {...register('search')} type="text" className='border-[1px] border-solid border-gray-300 px-2 py-1 rounded-lg focus:outline-none focus:ring-2 mr-2' placeholder='Search product' />
-            <button className='px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded-lg'>Search</button>
+            <input {...register('search')} type="text" className='border-[1px] border-solid border-gray-300 px-2 py-2 rounded-lg focus:outline-none focus:ring-2 mr-2' placeholder='Search product' />
+            <button className='px-5 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg'>Search</button>
           </form>
           <div className='flex gap-4'>
             <div>
@@ -143,6 +143,56 @@ const AdminProduct: React.FC = () => {
             </div>
           </div>
         </div>
+        <div className='py-3 flex flex-wrap items-center gap-4 w-[95%] mx-auto mt-3'>
+          <div className=''>
+            <label className='text-lg font-medium mr-2'>Min price</label>
+            <Space wrap>
+              <Select
+                defaultValue={'Default'}
+                // placeholder='Select status'
+                style={{ width: 250 }}
+                onChange={(sortedBy) => setSearchParams(searchParams => {
+                  searchParams.set('minPrice', sortedBy);
+                  return searchParams;
+                })}
+                options={[
+                  // { value: 'createdAt,desc', label: 'Sort by latest order' },
+                  // { value: 'createdAt,asc', label: 'Sort by oldest order' },
+                  { value: '', label: 'All' },
+                  { value: '5000000', label: '5.000.000' },
+                  { value: '10000000', label: '10.000.000' },
+                  { value: '15000000', label: '15.000.000' },
+                  { value: '20000000', label: '20.000.000' },
+                ]}
+              />
+            </Space>
+          </div>
+          <div>
+            <label className='text-lg font-medium mr-2'>Max price</label>
+            <Space wrap>
+              <Select
+                defaultValue={'Default'}
+                // placeholder='Select status'
+                style={{ width: 250 }}
+                onChange={(sortedBy) => setSearchParams(searchParams => {
+                  searchParams.set('maxPrice', sortedBy);
+                  return searchParams;
+                })}
+                options={[
+                  // { value: 'createdAt,desc', label: 'Sort by latest order' },
+                  // { value: 'createdAt,asc', label: 'Sort by oldest order' },
+                  { value: '', label: 'All' },
+                  { value: '5000000', label: '5.000.000' },
+                  { value: '10000000', label: '10.000.000' },
+                  { value: '15000000', label: '15.000.000' },
+                  { value: '20000000', label: '20.000.000' },
+                  { value: '25000000', label: '25.000.000' },
+                  { value: '30000000', label: '30.000.000' },
+                ]}
+              />
+            </Space>
+          </div>
+        </div>
         <div className='grid grid-cols-[4fr_2fr_1fr_2fr_1.5fr_2fr] py-3 px-4 bg-slate-100 text-base font-semibold'>
           <p>PRODUCT</p>
           <p>CATEGORY</p>
@@ -161,7 +211,7 @@ const AdminProduct: React.FC = () => {
                 </span>
                 <p>{product.category.categoryName}</p>
                 <Toggle order={product.productId} checked={product.quantity !== 0} />
-                <p className='font-medium'>{convertCurrency(product.price)} VND</p>
+                <p className='font-medium'>{convertCurrency(product.salePrice)} VND</p>
                 <p className='font-medium'>{product.quantity}</p>
                 <div className='flex gap-3'>
                   <div onClick={() => navigate(`${product.productId}/edit`)} className='hover:bg-sky-500 p-2 w-fit rounded-lg hover:cursor-pointer group'>
@@ -183,8 +233,8 @@ const AdminProduct: React.FC = () => {
             pageSizeOptions={['5', '10', '20', '30', '40']}
             onChange={onShowSizeChange}
             onShowSizeChange={onShowSizeChange}
-            defaultCurrent={page}
-            defaultPageSize={pageSize}
+            defaultCurrent={Number(page)}
+            defaultPageSize={Number(pageSize)}
             total={data?.data?.meta?.total}
           />
         </div>

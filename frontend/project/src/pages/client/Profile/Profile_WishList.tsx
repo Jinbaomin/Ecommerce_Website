@@ -10,12 +10,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAddProductToCart } from '../../../features/cart/useAddProductToCart';
 
 const Profile_WishList: React.FC = () => {
-  const { data, isFetching } = useUser();
+  const { data, isFetching, isPending: isPendingUser } = useUser();
   const { deleteProductFromWishList } = useDeleteProductFromWishList();
   const { addProductToCart, isPending } = useAddProductToCart();
   const navigate = useNavigate();
 
-  if (isFetching) {
+  if (isPendingUser) {
     return <FullPage>
       <Spinner size={50} />
     </FullPage>

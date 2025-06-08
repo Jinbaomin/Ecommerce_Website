@@ -9,10 +9,12 @@ import org.example.myproject.model.dto.GenericApiResponse;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -71,6 +73,18 @@ public class GlobalExceptionHandler {
                 .statusCode(statusCode)
                 .error("Validation Error")
                 .message(errors.get(0))
+                .build();
+        return ResponseEntity.status(statusCode).body(res);
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    ResponseEntity<GenericApiResponse<?>> handleAccessDeniedException(AccessDeniedException ex) {
+        ErrorCode errorCode = ErrorCode.FORBIDDEN;
+        int statusCode = errorCode.getResponseCode().value();
+        GenericApiResponse<?> res = GenericApiResponse.builder()
+                .statusCode(statusCode)
+                .error("Access Denied Exception")
+                .message(errorCode.getMessage())
                 .build();
         return ResponseEntity.status(statusCode).body(res);
     }

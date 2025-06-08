@@ -50,6 +50,22 @@ const Detail_Product: React.FC = () => {
               <div className="carousel-inner">
                 <div className="carousel-item active">
                   <div className='flex justify-center items-center'>
+                    <img src={product?.images[product.images.length - 1]}
+                      className='h-64 object-contain' alt='product'
+                    />
+                  </div>
+                </div>
+                {product?.images.map((image) => (
+                  <div className="carousel-item">
+                    <div className='flex justify-center items-center'>
+                      <img src={image}
+                        className='h-64 object-contain' alt='product'
+                      />
+                    </div>
+                  </div>
+                ))}
+                {/* <div className="carousel-item active">
+                  <div className='flex justify-center items-center'>
                     <img src={'https://product.hstatic.net/200000722513/product/u-16gpu-16gb-512gb-silver-mphh3sa-a-2_3d459fa64f614b829d9308de0ae6d3fe_5a34f8ad886444b9971d5f0b275f0dfa_grande.png'}
                       className='h-64 object-contain' alt='product'
                     />
@@ -75,7 +91,7 @@ const Detail_Product: React.FC = () => {
                       className='h-64 object-contain' alt='product'
                     />
                   </div>
-                </div>
+                </div> */}
               </div>
               <button className="carousel-control-prev bg-secondary-subtle" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                 <span className="carousel-control-prev-icon d-flex justify-content-center align-items-center" aria-hidden="true">

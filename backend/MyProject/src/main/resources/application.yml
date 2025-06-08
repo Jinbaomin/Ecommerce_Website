@@ -22,7 +22,12 @@ spring:
           auth: true
           starttls:
             enable: true
-
+  task:
+    execution:
+      pool:
+        core-size: 5
+        max-size: 10
+        queue-capacity: 100
 
 
 server:

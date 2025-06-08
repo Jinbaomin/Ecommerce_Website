@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { asset, cart } from '../../assets/asset'
-import { useCheckOut } from '../../features/order/useCheckout'
 import Spinner from '../../ui/Spinner';
 import { useUser } from '../../features/authentication/userUser';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { convertCurrency } from '../../helper/helper';
 import { useMyCart } from '../../features/cart/useMyCart';
 import FullPage from '../../ui/FullPage';
+import { useCheckOut } from '../../features/order/useCheckOut';
 
 const shippingMethods = [
   {
@@ -44,7 +44,7 @@ const Checkout: React.FC = () => {
     }
   });
 
-  const total = myCart?.data.total + costShippingMethod;
+  const total = myCart?.data.total || 0 + costShippingMethod;
 
   if (isPending || pendingCart) {
     return <FullPage>
@@ -189,7 +189,7 @@ const Checkout: React.FC = () => {
             <div className='space-y-2'>
               <div className='flex justify-between items-center'>
                 <p>Subtotal: </p>
-                <p className='font-medium'>{convertCurrency(myCart?.data.total)}</p>
+                <p className='font-medium'>{convertCurrency(myCart?.data.total || 0)}</p>
               </div>
               <div className='flex justify-between items-center'>
                 <p>Discount: </p>

@@ -69,7 +69,7 @@ public class OrderFacade {
                 .build();
     }
 
-    public GenericApiResponse<PaginationResult> getALlOrders(int page, int pageSize, String sortedBy, String status, String email) {
+    public GenericApiResponse<PaginationResult> getAllOrders(int page, int pageSize, String sortedBy, String status, String email) {
         List<String> arr = List.of(sortedBy.split(","));
         PaginationResult result = orderService.getAllOrders(page, pageSize, arr.get(0), arr.get(1), status, email);
         List<Order> orders = (List<Order>) result.getData();

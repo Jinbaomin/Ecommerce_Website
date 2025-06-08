@@ -42,6 +42,18 @@ import checked from './checked.png';
 import order from './order.png';
 import addPhoto from './addPhoto.png';
 
+import image1 from './carousel/thang_12_gearvn-4-laptop-gaming.webp';
+import image2 from './carousel/thang_12_laptop_acer_swift_800x400.webp';
+import image3 from './carousel/thang_12_laptop_gaming_web_slider_800x400.webp';
+import image4 from './carousel/thang_12_laptop_msi_yep_24_gearvn_800x400_fe7bf7fd53c94a8f82c331cf534c35d3.webp';
+import image5 from './carousel/thang_12_laptop_pps_vn_voco_static_banner_800x400.webp';
+
+import discount1 from './discount/uu_dai_gearvn-microsoft-365_2aa8dbe17b0941e180f6da14132d6a27.webp';
+import discount2 from './discount/uu_dai_soc_banner_web_slider_800x400.webp';
+import discount3 from './discount/uu_dai_thang_10_banner_man_hinh_web_slider_800x400.webp';
+import discount4 from './discount/uu_dai_thang_11_web_slider_800x400_laptop_gaming.webp';
+
+
 export const asset = {
   logo,
   ship1,
@@ -96,3 +108,18 @@ export const cart = {
   instock,
   verify
 }
+
+export const carousel = {
+  image1,
+  image2,
+  image3,
+  image4,
+  image5
+}
+
+export const discountBanner = [
+  discount1,
+  discount2,
+  discount3,
+  discount4
+]

@@ -54,7 +54,7 @@ const Register: React.FC = () => {
           <img src={asset.logo} alt='logo' className='w-20 h-20 object-contain' />
           <p className='text-5xl font-bold'>
             Register&nbsp;
-            <h1 className='font-extrabold text-5xl bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text'>TECH4</h1>
+            <h1 className='font-extrabold text-5xl bg-gradient-to-r from-cyan-500 to-blue-500 inline-block text-transparent bg-clip-text'>TECH4</h1>
           </p>
         </div>
         <div className='flex flex-col gap-1 my-3'>
@@ -118,9 +118,9 @@ const Register: React.FC = () => {
             {errors?.password && <p className='text-base text-red-500 pl-3'>{errors.password.message}</p>}
             {
               showPassword ? (
-                <FaEyeSlash onClick={handleShowPassword} className='absolute right-3 top-8 hover:cursor-pointer' />
+                <FaEyeSlash onClick={handleShowPassword} className='absolute right-3 top-9 hover:cursor-pointer' />
               ) : (
-                <FaRegEye onClick={handleShowPassword} className='absolute right-3 top-8 hover:cursor-pointer' />
+                <FaRegEye onClick={handleShowPassword} className='absolute right-3 top-9 hover:cursor-pointer' />
               )
             }
           </div>
@@ -135,9 +135,9 @@ const Register: React.FC = () => {
             {errors?.passwordConfirm && <p className='text-base text-red-500 pl-3'>{errors.passwordConfirm.message}</p>}
             {
               showPasswordConfirm ? (
-                <FaEyeSlash onClick={handleShowPasswordConfirm} className='absolute right-3 top-8 hover:cursor-pointer' />
+                <FaEyeSlash onClick={handleShowPasswordConfirm} className='absolute right-3 top-9 hover:cursor-pointer' />
               ) : (
-                <FaRegEye onClick={handleShowPasswordConfirm} className='absolute right-3 top-8 hover:cursor-pointer' />
+                <FaRegEye onClick={handleShowPasswordConfirm} className='absolute right-3 top-9 hover:cursor-pointer' />
               )
             }
           </div>

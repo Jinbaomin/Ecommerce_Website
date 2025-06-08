@@ -9,6 +9,7 @@ import org.example.myproject.model.dto.GenericApiResponse;
 import org.example.myproject.model.dto.request.ChangePasswordRequest;
 import org.example.myproject.model.dto.request.ResetPasswordRequest;
 import org.example.myproject.model.dto.request.UpdateUserRequest;
+import org.example.myproject.model.dto.response.PaginationResult;
 import org.example.myproject.model.dto.response.UserDTO;
 import org.example.myproject.model.entity.UserEntity;
 import org.example.myproject.services.UserService;
@@ -38,8 +39,12 @@ public class UserController {
     }
 
     @GetMapping("")
-    public ResponseEntity<GenericApiResponse<List<UserDTO>>> getAllUser() {
-        return ResponseEntity.ok(userFacade.getAllUser());
+    public ResponseEntity<GenericApiResponse<PaginationResult>> getAllUser(
+            @RequestParam(value = "page", required = false, defaultValue = "1") String page,
+            @RequestParam(value = "pageSize", required = false, defaultValue = "5") String pageSize,
+            @RequestParam(value = "search", required = false, defaultValue = "") String search
+    ) {
+        return ResponseEntity.ok(userFacade.getAllUser(Integer.parseInt(page), Integer.parseInt(pageSize),search));
     }
 
     @GetMapping("/{id}")

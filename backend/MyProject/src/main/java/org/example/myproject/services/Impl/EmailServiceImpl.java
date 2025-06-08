@@ -5,12 +5,15 @@ import jakarta.mail.internet.MimeMessage;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 import org.example.myproject.exception.AppException;
 import org.example.myproject.services.EmailService;
 import org.springframework.mail.MailException;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
@@ -18,6 +21,7 @@ import org.thymeleaf.spring6.SpringTemplateEngine;
 import java.nio.charset.StandardCharsets;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE,makeFinal = true)
 public class EmailServiceImpl implements EmailService {
@@ -26,6 +30,7 @@ public class EmailServiceImpl implements EmailService {
 
     SpringTemplateEngine templateEngine;
 
+    @Async("asyncTaskExecutor")
     @Override
     public void sendEmailSync(String to, String subject, String content, boolean isMultiPart, boolean isHTML) {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
@@ -41,6 +46,8 @@ public class EmailServiceImpl implements EmailService {
         }
     }
 
+
+    @Async("asyncTaskExecutor")
     @Override
     public void sendTemplateEmail(String to, String subject, String templateName, String otp) {
         Context context = new Context();
@@ -49,6 +56,5 @@ public class EmailServiceImpl implements EmailService {
         String content = templateEngine.process(templateName, context);
         this.sendEmailSync(to, subject, content, false, true);
     }
-
 
 }

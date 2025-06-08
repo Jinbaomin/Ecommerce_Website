@@ -13,8 +13,6 @@ const ReceiptOrder: React.FC = () => {
 
   const order: IOrder | undefined = queryClient.getQueryData(['detailOrder', parseInt(orderId)]);
 
-  console.log(order);
-
   if (!order) {
     return <NotFound />
   }

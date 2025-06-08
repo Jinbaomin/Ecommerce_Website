@@ -76,6 +76,7 @@ const LayoutAdmin = () => {
 
   return (
     <div className='grid grid-cols-[auto_1fr] gap-4 min-h-screen bg-slate-100'>
+    {/* <div className='flex gap-4 min-h-screen bg-slate-100'> */}
       <div className='sticky top-0 w-[250px] flex flex-col gap-2 py-4 pe-3 bg-white shadow-md border-r-[1px] text-lg overflow-y-scroll h-screen'>
         <div className='px-2 py-1 flex justify-center items-center gap-2 text-3xl font-bold '>
           <img src={asset.admin} alt="" className='w-10 h-10' />
@@ -92,7 +93,8 @@ const LayoutAdmin = () => {
           </button>
         ))}
       </div>
-      <div className='grid-rows-[auto_1fr] space-y-5'>
+      <div className='grid-rows-[auto_1fr]'>
+      {/* <div className='flex flex-col space-y-5'> */}
         <div className=' pb-2 pt-3 px-3 flex items-center justify-end shadow-md bg-white rounded-s-lg'>
           <div className='flex items-center gap-2'>
             <div className='hover:bg-slate-200 group p-2 rounded-full'>
@@ -125,7 +127,7 @@ const LayoutAdmin = () => {
             </Dropdown>
           </div>
         </div>
-        <div className=''>
+        <div className='py-4'>
           <Outlet />
         </div>
       </div>

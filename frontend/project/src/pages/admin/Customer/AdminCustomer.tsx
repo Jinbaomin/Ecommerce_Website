@@ -5,10 +5,39 @@ import { useNavigate } from 'react-router'
 import { useGetAllUser } from '../../../features/user/useGetAllUser'
 import FullPage from '../../../ui/FullPage'
 import Spinner from '../../../ui/Spinner'
+import { Pagination, PaginationProps } from 'antd'
+import { useSearchParams } from 'react-router-dom'
+import { SubmitHandler, useForm } from 'react-hook-form'
 
 const AdminCustomer = () => {
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const { data, isPending } = useGetAllUser();
+  const { register, handleSubmit } = useForm<{ search: string }>({
+    defaultValues: {
+      search: ''
+    }
+  });
+
+
+  const page = searchParams.get('page') || 1;
+  const pageSize = searchParams.get('limit') || 5;
+
+  const onShowSizeChange: PaginationProps['onShowSizeChange'] = (current, pageSize) => {
+    // console.log(current, pageSize);
+    setSearchParams(searchParams => {
+      searchParams.set('page', current.toString());
+      searchParams.set('limit', pageSize.toString());
+      return searchParams;
+    });
+  };
+
+  const handleSearch: SubmitHandler<{ search: string }> = ({ search }) => {
+    setSearchParams(searchParams => {
+      searchParams.set('search', search);
+      return searchParams;
+    });
+  }
 
   if (isPending) {
     return <FullPage>
@@ -19,7 +48,56 @@ const AdminCustomer = () => {
   return (
     <div className='bg-white py-4 rounded-xl w-[96%] mr-auto border-[1px] border-solid shadow-md'>
       <div className='flex flex-col'>
-        <p className='text-center font-bold text-4xl mb-4'>ALL ORDER</p>
+        <p className='text-center font-bold text-4xl mb-4'>ALL CUSTOMER</p>
+        <div className='py-3 px-4 flex justify-between items-center gap-4'>
+          <form onSubmit={handleSubmit(handleSearch)}>
+            <label className='text-lg font-medium mr-2'>Search</label>
+            <input {...register('search')} type="text" className='border-[1px] border-solid border-gray-300 px-2 py-1 rounded-lg focus:outline-none focus:ring-2 mr-2' placeholder='Search customer' />
+            <button className='px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded-lg'>Search</button>
+          </form>
+          {/* <div className='flex gap-4'>
+            <div>
+              <label className='text-lg font-medium mr-2'>Filter</label>
+              <Space wrap>
+                <Select
+                  defaultValue={'ALL'}
+                  // placeholder='Select status'
+                  style={{ width: 250 }}
+                  onChange={(status) => setSearchParams(searchParams => {
+                    searchParams.set('status', status);
+                    return searchParams;
+                  })}
+                  options={[
+                    { value: '', label: 'ALL' },
+                    { value: 'PENDING', label: 'Pending' },
+                    { value: 'CANCELED', label: 'Canceled' },
+                    { value: 'DELIVERED', label: 'Delivered' }
+                  ]}
+                />
+              </Space>
+            </div>
+            <div>
+              <label className='text-lg font-medium mr-2'>Sort By</label>
+              <Space wrap>
+                <Select
+                  defaultValue={'Default'}
+                  // placeholder='Select status'
+                  style={{ width: 250 }}
+                  onChange={(sortedBy) => setSearchParams(searchParams => {
+                    searchParams.set('sortedBy', sortedBy);
+                    return searchParams;
+                  })}
+                  options={[
+                    { value: 'createdAt,desc', label: 'Sort by latest order' },
+                    { value: 'createdAt,asc', label: 'Sort by oldest order' },
+                    { value: 'total,asc', label: 'Sort by ascending total' },
+                    { value: 'total,desc', label: 'Sort by descending total' }
+                  ]}
+                />
+              </Space>
+            </div>
+          </div> */}
+        </div>
         <div className='grid grid-cols-[3fr_4fr_2fr_3fr_2fr_2fr] py-3 px-4 bg-slate-100 text-base font-semibold'>
           <p>CUSTOMER ID</p>
           <p>CUSTOMER</p>
@@ -27,7 +105,7 @@ const AdminCustomer = () => {
           <p>STATUS</p>
           <p>ACTION</p>
         </div>
-        {data?.data.map(user => (
+        {data?.data.data.map(user => (
           <>
             <div className='grid grid-cols-[3fr_4fr_2fr_3fr_2fr_2fr] items-center py-3 px-4 text-sm'>
               <p className='font-semibold'>#{user.userId}</p>
@@ -51,6 +129,18 @@ const AdminCustomer = () => {
             <span className='border'></span>
           </>
         ))}
+        <div className='py-3 px-4'>
+          <Pagination
+            align='end'
+            showSizeChanger
+            pageSizeOptions={['5', '10', '20', '30', '40']}
+            onChange={onShowSizeChange}
+            onShowSizeChange={onShowSizeChange}
+            defaultCurrent={Number(page)}
+            defaultPageSize={Number(pageSize)}
+            total={data?.data?.meta?.total}
+          />
+        </div>
         {/* <div className='grid grid-cols-[3fr_4fr_2fr_3fr_2fr_2fr] items-center py-3 px-4 text-sm'>
           <p className='font-semibold'>#233</p>
           <div className='flex gap-2'>

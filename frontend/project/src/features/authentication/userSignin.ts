@@ -21,6 +21,7 @@ const useLogin = () => {
     mutationFn: ({ email, password }): Promise<any> => callLogin(email, password),
     onSuccess: (data) => {
       localStorage.setItem('access_token', data.data.access_token);
+      localStorage.setItem('userId', data.data.user.userId);
       toast.success(data.message, {
         position: "top-right",
         autoClose: 1500,
@@ -28,6 +29,11 @@ const useLogin = () => {
         transition: Flip
       });
       queryClient.removeQueries();
+      // if(data.data.user.roles[0] == 'ADMIN') {
+      //   navigate('/admin');
+      // } else {
+      //   navigate('/');
+      // }
       navigate('/');
     },
     onError: (error) => {

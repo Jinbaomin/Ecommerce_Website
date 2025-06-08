@@ -61,7 +61,7 @@ const Login: React.FC = () => {
           <img src={asset.logo} alt='logo' className='w-20 h-20 object-contain' />
           <p className='text-5xl font-bold'>
             Log in&nbsp;
-            <h1 className='font-extrabold text-5xl bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text'>TECH4</h1>
+            <h1 className='font-extrabold text-5xl bg-gradient-to-r from-cyan-500 to-blue-500 inline-block text-transparent bg-clip-text'>TECH4</h1>
           </p>
         </div>
         <div className='flex flex-col gap-2 mb-1 mt-4'>

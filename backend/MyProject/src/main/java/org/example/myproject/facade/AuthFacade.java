@@ -16,9 +16,12 @@ import org.example.myproject.security.JwtProvider;
 import org.example.myproject.security.SecurityUtils;
 import org.example.myproject.services.OtpService;
 import org.example.myproject.services.UserService;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +36,9 @@ public class AuthFacade {
 
     OtpService otpService;
 
-    AuthenticationManagerBuilder authenticationManagerBuilder;
+    AuthenticationManagerBuilder authenticationManager;
+
+    AuthenticationProvider authenticationProvider;
 
     JwtProvider jwtProvider;
 
@@ -47,11 +52,16 @@ public class AuthFacade {
 
     public GenericApiResponse<AuthenticationResponse> authenticate(LoginInfo loginInfo) {
         // load input into spring security
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginInfo.getEmail(), loginInfo.getPassword());
+//        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginInfo.getEmail(), loginInfo.getPassword());
 
         // Use function loadByUserName => authenticate user
-        Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
+//        Authentication authentication = authenticationManager.getObject().authenticate(new UsernamePasswordAuthenticationToken(loginInfo.getEmail(), loginInfo.getPassword()));
+        Authentication authentication = authenticationProvider.authenticate(new UsernamePasswordAuthenticationToken(loginInfo.getEmail(), loginInfo.getPassword()));
 
+        // Set authentication into Spring SecurityContext
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        // Generate access token and refresh token
         String accessToken = jwtProvider.generateAccessToken(authentication);
         String refreshToken = jwtProvider.generateRefreshToken(authentication);
 

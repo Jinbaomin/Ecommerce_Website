@@ -30,7 +30,7 @@ const navigation = [
   {
     icon: <BsBasket className={styledIcon} />,
     title: 'Order',
-    path: 'myOrder'
+    path: 'track-order'
   },
   {
     icon: <FaRegHeart className={styledIcon} />,

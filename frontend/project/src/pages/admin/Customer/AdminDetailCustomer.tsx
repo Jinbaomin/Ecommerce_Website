@@ -53,7 +53,7 @@ const AdminDetailCustomer = () => {
   });
 
   const onShowSizeChange: PaginationProps['onShowSizeChange'] = (current, pageSize) => {
-    console.log(current, pageSize);
+    // console.log(current, pageSize);
     setSearchParams({ page: current, limit: pageSize });
   };
 
@@ -182,8 +182,8 @@ const AdminDetailCustomer = () => {
                   pageSizeOptions={['5', '10', '20', '30', '40']}
                   onChange={onShowSizeChange}
                   onShowSizeChange={onShowSizeChange}
-                  defaultCurrent={page}
-                  defaultPageSize={pageSize}
+                  defaultCurrent={Number(page)}
+                  defaultPageSize={Number(pageSize)}
                   total={order?.data?.meta?.total}
                 />
               </div>
@@ -214,7 +214,7 @@ const AdminDetailCustomer = () => {
           <div className='py-3 space-y-1'>
             <p>Username: <span className='text-gray-600'>{customer?.data.userName}</span></p>
             <p>Email: <span className='text-gray-600'>{customer?.data.email}</span></p>
-            <p>Status: <span className='text-gray-600'>Active</span></p>
+            <p>Status: <span className='text-blue-600 font-semibold'>Active</span>s</p>
             <p>Role: <span className='text-gray-600 font-semibold'>{customer?.data.roles[0]}</span></p>
             <p>Phone: <span className='text-gray-600'>{customer?.data.phone}</span></p>
           </div>

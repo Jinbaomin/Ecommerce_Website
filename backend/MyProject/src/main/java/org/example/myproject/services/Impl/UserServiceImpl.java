@@ -10,6 +10,7 @@ import org.example.myproject.exception.AppException;
 import org.example.myproject.exception.ErrorCode;
 import org.example.myproject.mapper.UserMapper;
 import org.example.myproject.model.dto.request.RegisterInfo;
+import org.example.myproject.model.dto.response.PaginationResult;
 import org.example.myproject.model.dto.response.UserDTO;
 import org.example.myproject.model.entity.Cart;
 import org.example.myproject.model.entity.UserEntity;
@@ -17,6 +18,9 @@ import org.example.myproject.repositories.UserRepository;
 import org.example.myproject.security.JwtProvider;
 import org.example.myproject.security.SecurityUtils;
 import org.example.myproject.services.UserService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -130,7 +134,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserEntity> getAllUser() {
-        return userRepository.findAll();
+    public PaginationResult getAllUser(int page, int pageSize, String search) {
+        Pageable pageable = PageRequest.of(page - 1, pageSize);
+        Page<UserEntity> listPage;
+        if(!search.isEmpty()) {
+            listPage = userRepository.findByEmailOrUserName(search, search, pageable);
+        } else {
+            listPage = userRepository.findAll(pageable);
+        }
+        PaginationResult.Meta meta = PaginationResult.Meta.builder()
+                .page(listPage.getNumber() + 1)
+                .pageSize(listPage.getSize())
+                .amountPage(listPage.getTotalPages())
+                .total(listPage.getTotalElements())
+                .build();
+        return PaginationResult.builder()
+                .meta(meta)
+                .data(listPage.getContent())
+                .build();
     }
 }

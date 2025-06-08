@@ -133,7 +133,19 @@
             <artifactId>thymeleaf-spring5</artifactId>
             <version>3.1.2.RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-jpamodelgen</artifactId>
+            <version>${hibernate.version}</version> <!-- Match your Hibernate version -->
+            <scope>provided</scope>
+        </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>5.4.1</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -157,7 +169,15 @@
                             <artifactId>mapstruct-processor</artifactId>
                             <version>${org.mapstruct.version}</version>
                         </path>
+                        <path>
+                            <groupId>org.hibernate</groupId>
+                            <artifactId>hibernate-jpamodelgen</artifactId>
+                            <version>${hibernate.version}</version>
+                        </path>
                     </annotationProcessorPaths>
+                    <compilerArgs>
+                        <arg>-AaddGeneratedAnnotation=false</arg> <!-- Suppress @Generated annotation -->
+                    </compilerArgs>
                 </configuration>
             </plugin>
         </plugins>

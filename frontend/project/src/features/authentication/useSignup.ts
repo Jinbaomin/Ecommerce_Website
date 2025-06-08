@@ -4,6 +4,9 @@ import { register as registerApi } from "../../services/apiAuth";
 import { AxiosError } from "axios";
 import { error } from "console";
 import { callRegister } from "../../config/api";
+import { nofitication } from "../../helper/notificationHelper";
+import { message } from "antd";
+import { useNavigate } from "react-router";
 
 interface RegisterValues {
   fullName: string;
@@ -14,13 +17,17 @@ interface RegisterValues {
 }
 
 const useRegister = () => {
+  const navigate = useNavigate();
   const { mutate: signup, isPending } = useMutation<IBackendResponse<IUser>, AxiosError<IBackendResponse<any>>, RegisterValues>({
     mutationFn: async ({ fullName, userName, email, phone, password }): Promise<any> => callRegister(fullName, userName, email, phone, password),
     onSuccess: (data) => {
-      console.log(data);
+      // console.log(data);
+      nofitication(data?.message, 'success');
+      navigate('/login');
     },
     onError: (error) => {
-      console.log(error.response?.data.message);
+      // console.log(error.response?.data.message);
+      nofitication(error.response?.data.message, 'error');
     }
   });
 

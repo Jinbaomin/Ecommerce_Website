@@ -118,3 +118,20 @@ option {
     @apply bg-background text-foreground;
   }
 } */
+
+/* the slides */
+/* .slick-slide {
+  margin: 0 27px;
+} */
+
+/* the parent */
+/* .slick-list {
+    margin: 0 -27px;
+} */
+
+.slick-list {margin: 0 -5px;}
+.slick-slide>div {padding: 0 5px;}
+.slick-prev:before,
+.slick-next:before {
+  color: gray;
+}

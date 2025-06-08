@@ -29,7 +29,7 @@ export const useCheckOut = () => {
 
       nofitication(data.message, 'success');
 
-      navigate('/receipt-order/' + data.data.orderId);
+      navigate('/order-confirmation/' + data.data.orderId);
     },
     onError: (error) => {
       nofitication(error?.response?.data.message, 'error');

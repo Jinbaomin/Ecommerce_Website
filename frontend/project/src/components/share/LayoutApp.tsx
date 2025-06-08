@@ -11,14 +11,21 @@ interface IProps {
 }
 const LayoutApp: React.FC<IProps> = (props) => {
   const navigate = useNavigate();
-  const { isLoading, isAuthenticated, isFetching } = useUser();
+  const { data, isLoading, isAuthenticated, isFetching } = useUser();
   // const queryClient = useQueryClient();
 
   // console.log(localStorage.getItem('access_token'), isAuthenticated, isPending, isFetching);
 
   useEffect(() => {
     if(!isAuthenticated && !isFetching) {
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('userId');
+      // localStorage.clear();
       navigate('/login');
+    }
+
+    if(data?.data?.user?.roles[0] == 'ADMIN') {
+      navigate('/admin');
     }
 
   }, [isAuthenticated, isFetching]);
@@ -31,7 +38,7 @@ const LayoutApp: React.FC<IProps> = (props) => {
     )
   }
 
-  console.log(isAuthenticated);
+  // console.log(isAuthenticated);
 
   return (
     <Fragment>

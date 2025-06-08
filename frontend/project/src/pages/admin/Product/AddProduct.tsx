@@ -35,7 +35,7 @@ const AddProduct: React.FC = () => {
   const [deleting, setDeleting] = React.useState(false);
   const { createNewProduct, isPending } = useCreateProduct();
 
-  const { register, handleSubmit, formState: { errors }, setValue, getValues } = useForm<FormValuesProduct>({
+  const { register, handleSubmit, formState: { errors }, setValue, getValues, reset } = useForm<FormValuesProduct>({
     defaultValues: {
       productName: '',
       price: NaN,
@@ -73,9 +73,10 @@ const AddProduct: React.FC = () => {
     const images = getValues().images;
     images.splice(index, 1);
     setDeleting(false);
+    reset({ images });
   }
 
-  if(isPendingCategory) {
+  if (isPendingCategory) {
     return <FullPage>
       <Spinner size={50} />
     </FullPage>
@@ -249,12 +250,12 @@ const AddProduct: React.FC = () => {
                   style={{ width: 370 }}
                   // onChange={handleChange}
                   options={category?.data.map(item => ({ value: item.categoryId, label: item.categoryName })) || []}
-                  // options={[
-                  //   { value: 1, label: 'Laptop' },
-                  //   { value: 2, label: 'Phone' },
-                  //   { value: 'Yiminghe', label: 'yiminghe' },
-                  //   { value: 'disabled', label: 'Disabled', disabled: true },
-                  // ]}
+                // options={[
+                //   { value: 1, label: 'Laptop' },
+                //   { value: 2, label: 'Phone' },
+                //   { value: 'Yiminghe', label: 'yiminghe' },
+                //   { value: 'disabled', label: 'Disabled', disabled: true },
+                // ]}
                 />
               </Space>
               {/* <select {...register('categoryId')} className='px-3 py-2 border rounded-xl focus:outline-none focus:ring-2 w-full'>

@@ -20,6 +20,7 @@ public enum ErrorCode {
     INVALID_TOKEN("Token is invalid", HttpStatus.UNAUTHORIZED),
     EXPIRED_OTP("Otp is expired", HttpStatus.UNAUTHORIZED),
     UNAUTHENTICATED("Unauthenticated", HttpStatus.UNAUTHORIZED),
+    FORBIDDEN("You don't have permission to do this action", HttpStatus.FORBIDDEN),
 
     // Category
     CATEGORY_NOT_FOUND("Category is not found", HttpStatus.NOT_FOUND),

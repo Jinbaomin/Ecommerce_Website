@@ -26,9 +26,25 @@ public class ProductController {
             @RequestParam(value = "pageSize", required = false, defaultValue = "5") String pageSize,
             @RequestParam(value = "sortedBy", required = false, defaultValue = "createdAt,asc") String sortedBy,
             @RequestParam(value = "stock", required = false, defaultValue = "") String stock,
-            @RequestParam(value = "name", required = false, defaultValue = "") String name
+            @RequestParam(value = "name", required = false, defaultValue = "") String name,
+            @RequestParam(value = "brands", required = false, defaultValue = "") String brand,
+            @RequestParam(value = "ram", required = false, defaultValue = "") String hasRam,
+            @RequestParam(value = "rom", required = false, defaultValue = "") String hasRom,
+            @RequestParam(value = "minPrice", required = false, defaultValue = "") String minPrice,
+            @RequestParam(value = "maxPrice", required = false, defaultValue = "") String maxPrice
     ) {
-        return ResponseEntity.ok(productFacade.getAllProduct(Integer.parseInt(page), Integer.parseInt(pageSize), sortedBy, stock, name));
+        return ResponseEntity.ok(productFacade.getAllProduct(
+                Integer.parseInt(page),
+                Integer.parseInt(pageSize),
+                sortedBy,
+                stock,
+                name,
+                brand,
+                hasRam,
+                hasRom,
+                minPrice,
+                maxPrice)
+        );
     }
 
     @PostMapping("")

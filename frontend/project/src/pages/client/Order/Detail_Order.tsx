@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router'
 import { IoArrowBack } from 'react-icons/io5';
 
 const colorStatus = {
-  'PENDING': 'bg-cyan-500',
+  'PENDING': 'bg-blue-500',
   'DELIVERED': 'bg-green-500',
   'CANCELED': 'bg-red-500'
 }
@@ -31,7 +31,7 @@ const Detail_Order: React.FC = () => {
 
   return (
     <div className='w-[90%] mx-auto border-1 border-black p-3 rounded-xl'>
-      <button onClick={() => navigate(-1)} className='p-1 border-2 rounded-lg hover:bg-violet-200 mb-2'>
+      <button onClick={() => navigate(-1)} className='p-1 border-2 rounded-lg hover:bg-cyan-100 mb-2'>
         <IoArrowBack className='w-7 h-7' />
       </button>
       {/* <div className='flex flex-col items-center mb-10'>

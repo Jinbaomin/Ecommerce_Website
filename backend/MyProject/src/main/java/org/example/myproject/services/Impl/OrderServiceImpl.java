@@ -23,10 +23,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -127,6 +124,10 @@ public class OrderServiceImpl implements OrderService {
         UserEntity user = userService.findUserById(userId).get();
         Pageable pageable = PageRequest.of(page - 1, pageSize);
         Page<Order> listPage = orderRepository.findByUser(user, pageable);
+
+        List<Order> orders = new ArrayList<>(listPage.getContent());
+        Collections.reverse(orders);
+
         PaginationResult.Meta meta = PaginationResult.Meta.builder()
                 .page(listPage.getNumber() + 1)
                 .pageSize(listPage.getSize())
@@ -135,7 +136,7 @@ public class OrderServiceImpl implements OrderService {
                 .build();
         return PaginationResult.builder()
                 .meta(meta)
-                .data(listPage.getContent())
+                .data(orders)
                 .build();
     }
 

@@ -35,8 +35,6 @@ const AdminOrder: React.FC = () => {
     </FullPage>
   }
 
-  console.log(data);
-
   const onShowSizeChange: PaginationProps['onShowSizeChange'] = (current, pageSize) => {
     // console.log(current, pageSize);
     setSearchParams(searchParams => {

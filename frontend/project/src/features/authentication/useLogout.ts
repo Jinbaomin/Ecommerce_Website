@@ -11,14 +11,16 @@ export const useLogout = () => {
   const queryClient = useQueryClient();
 
   const { mutate: logout, isPending } = useMutation<IBackendResponse<any>, AxiosError<string>>({
-    mutationFn: async () => callLogout(),
+    mutationFn: async (): Promise<any> => callLogout(),
     onSuccess: (data) => {
-      console.log('remove token');
+      // console.log('remove token');
       localStorage.removeItem('access_token');
+      localStorage.removeItem('userId');
       // localStorage.setItem('access_token', data.data);
-      queryClient.invalidateQueries({
-        queryKey: ['account']
-      })
+      // queryClient.invalidateQueries({
+      //   queryKey: ['account']
+      // });
+      queryClient.removeQueries();
       toast.success(data.message, {
         position: "top-right",
         autoClose: 1500,

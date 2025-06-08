@@ -41,8 +41,8 @@ export const callUpdateUser = async (id: string, fullName: string, email: string
   return axios.post<IBackendResponse<IUser>>(`/user/${id}`, { fullName, email, phone });
 }
 
-export const callGetAllUser = async () => {
-  return axios.get<IBackendResponse<IUser[]>>('/user');
+export const callGetAllUser = async (query: string) => {
+  return axios.get<IBackendResponse<IUser[]>>(`/user${query}`);
 }
 
 export const callGetUserById = async (userId: string) => {
@@ -182,4 +182,9 @@ export const callDeleteCategory = async (categoryId: string) => {
 
 export const callUpdateCategory = async (categoryId: string, categoryName: string) => {
   return axios.put<IBackendResponse<ICategory>>(`/category/${categoryId}`, { categoryName });
+}
+
+// Module Report
+export const callGetReport = async (startDate: string, endDate: string) => {
+  return axios.get<IBackendResponse<any>>(`/report/excel?startDate=${startDate}&endDate=${endDate}`);
 }

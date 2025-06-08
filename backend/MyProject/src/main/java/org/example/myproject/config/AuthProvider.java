@@ -5,13 +5,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.example.myproject.exception.AppException;
 import org.example.myproject.exception.ErrorCode;
-import org.example.myproject.security.UserDetailService;
+import org.example.myproject.security.CustomUserDetailService;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -21,21 +20,23 @@ import org.springframework.stereotype.Component;
 public class AuthProvider implements AuthenticationProvider {
     PasswordEncoder passwordEncoder;
 
-    UserDetailService userDetailService;
+    CustomUserDetailService userDetailService;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        boolean isEmail = authentication.getName().contains("@gmail.com");
-        UserDetails userDetails;
-        if(isEmail) {
-            userDetails = userDetailService.loadUserByEmail(authentication.getName());
-        } else {
-            userDetails = userDetailService.loadUserByUsername(authentication.getName());
-        }
+//        boolean isEmail = authentication.getName().contains("@gmail.com");
+//        UserDetails userDetails;
+//        if(isEmail) {
+//            userDetails = userDetailService.loadUserByEmail(authentication.getName());
+//        } else {
+//            userDetails = userDetailService.loadUserByUsername(authentication.getName());
+//        }
+
+        UserDetails userDetails = userDetailService.loadUserByUsername(authentication.getName());
 
         if(passwordEncoder.matches(authentication.getCredentials().toString(), userDetails.getPassword())) {
-            return new UsernamePasswordAuthenticationToken(authentication.getName(),
-                    authentication.getCredentials().toString(), userDetails.getAuthorities());
+            return new UsernamePasswordAuthenticationToken(userDetails,
+                    null, userDetails.getAuthorities());
         } else {
             throw new AppException(ErrorCode.INCORRECT_PASSWORD);
         }

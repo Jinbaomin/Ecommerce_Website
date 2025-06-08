@@ -13,6 +13,7 @@ import org.example.myproject.repositories.UserRepository;
 import org.example.myproject.services.EmailService;
 import org.example.myproject.services.OtpService;
 import org.example.myproject.services.UserService;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
